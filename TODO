@@ -1,0 +1,18 @@
+DB :
+    - create a new database (mysql/mariadb)
+    - create db 'message' with the given parameters (sender, receiver, message)
+    - create a point of view for users to see the database.
+
+Backend :
+    - Create exercice :
+        - 0 : Installation
+        - 1 : Simple ws connection with the frontend
+        - 2 : Fetch the correct information from the DB
+        - 3 : Send all the message to the frontend
+        - 4 : Send only new messages to the frontend
+
+Frontend :
+    - /register : page for the exercice 1
+        - create a page to fetch the information of the 
+    - /basic : page for the exercice 3
+    - /complex : page for the exercice 4
