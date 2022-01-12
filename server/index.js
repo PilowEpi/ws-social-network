@@ -1,47 +1,52 @@
 const express = require("express");
 const ws = require("ws");
-//import WebSocket, { WebSocketServer } from 'ws';
+
+// WebSocket part
 
 const wss = new ws.Server({
     noServer: true
 });
 
-// To connect for messages : mes-from-to
 wss.on('connection', (ws, rq) => {
     var endpoint = rq.url;
-    if (endpoint.startsWith('/mes')) {
-        const infos = endpoint.split('-');
-        console.log(infos);
-        if (infos.length == 3) {
-            ws.SNfrom = infos[1];
-            ws.SNto = infos[2];
 
-            ws.on('message', (message) => {
-                console.log("Received message: '" + message + "' from " + ws.SNfrom + " to " + ws.SNto);
-                // Send message to the asked person
-                wss.clients.forEach((client) => {
-                    if (client.SNfrom = ws.SNto && client.SNto == ws.SNfrom) {
-                        client.send(message);
-                    }
-                });
-            });
-        } else {
-            ws.terminate();
-        }
-    } else {
+    if (!endpoint.startsWith('/register'))
         ws.terminate();
-    }
-});
+    ws.on('message', (message) => {
+        console.log("Received message: " + message);
+        let msg = {
+            msg: message.toString()
+        }
+        wss.clients.forEach((client) => {
+            client.send(JSON.stringify(msg));
+        });
+    });
+
+})
+
+// Express part
 
 const app = express();
 
-app.get("/", function(req, res) {
-    res.sendFile(__dirname + '/front/index.html');
+var server = app.listen(4242, () => {
+    console.log("Server listening : http://localhost:4242");
+})
+
+app.use("/static", express.static('./static/'));
+
+app.get("/ex00", function(req, res) {
+    res.sendFile(__dirname + '/front/register.html');
 });
 
-var server = app.listen(3000, () => {
-    console.log("Server listening : http://localhost:3000");
+app.get("/basic", function(req, res) {
+    res.sendFile(__dirname + '/front/basic.html');
 });
+
+app.get("/complexe", function(req, res) {
+    res.sendFile(__dirname + '/front/complexe.html');
+});
+
+// Express api part
 
 server.on('upgrade', (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, socket => {

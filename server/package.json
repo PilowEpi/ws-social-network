@@ -1,22 +1,13 @@
 {
-  "name": "ws-server",
+  "name": "server_front",
   "version": "1.0.0",
-  "description": "Websocket Server",
+  "description": "Server for workshop",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/PilowEpi/ws-social-network.git"
-  },
-  "author": "c-louis & PilowEpi",
+  "author": "PilowEpi",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/PilowEpi/ws-social-network/issues"
-  },
-  "homepage": "https://github.com/PilowEpi/ws-social-network#readme",
   "dependencies": {
     "express": "^4.17.2",
     "ws": "^8.4.0"
